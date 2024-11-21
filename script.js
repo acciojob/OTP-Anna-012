@@ -1,20 +1,27 @@
 //your JS code here. If required.
-document.addEventListener("DOMContentLoaded", () => {
-    const inputs = document.querySelectorAll(".code");
-    
-    inputs.forEach((input, index) => {
-        input.addEventListener("input", (e) => {
-            if (e.target.value.length === 1 && index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            }
-        });
+const inputs = document.querySelectorAll(".code");
 
-        input.addEventListener("keydown", (e) => {
-            if (e.key === "Backspace" && e.target.value === "") {
-                if (index > 0) {
-                    inputs[index - 1].focus();
-                }
-            }
-        });
-    });
+inputs.forEach((input, index) => {
+  input.addEventListener("input", (e) => {
+    const value = e.target.value;
+    if (value) {
+      // Move to the next input if exists
+      const nextInput = inputs[index + 1];
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace") {
+      // Clear the current input
+      input.value = "";
+      // Move to the previous input if exists
+      const previousInput = inputs[index - 1];
+      if (previousInput) {
+        previousInput.focus();
+      }
+    }
+  });
 });
